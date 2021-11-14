@@ -15,6 +15,8 @@ public interface BookService {
 	/*It deletes a register on database*/
 	void deleteBook (Long id);
 	
+	List<Book> listAll ();
+	
 	/*It list all registers from database*/
 	List<Book> findByTitle (String title);
 	

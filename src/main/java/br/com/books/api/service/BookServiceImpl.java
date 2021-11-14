@@ -45,10 +45,16 @@ public class BookServiceImpl implements BookService {
 					  }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "This register don´t exist on database!"));
 	}
 
+	public List<Book> listAll (){
+		return bookRepository.findAll();
+	}
 	
 	/*This method find register by title*/
 	@Override
 	public List<Book> findByTitle (String title) {
+		
+		
+		
 		return bookRepository.findByTitle(title);
 	}
 
