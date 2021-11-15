@@ -1,5 +1,7 @@
 package br.com.books.api.controller;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.books.api.dto.DataDTO;
 import br.com.books.api.model.Book;
 import br.com.books.api.service.BookService;
 import br.com.books.api.service.ConsummerFilmService;
@@ -55,7 +58,45 @@ public class BookController {
 	}
 	
 	@GetMapping(value = "/list")
-	public List<Book> listRegisters (@RequestParam String title){
-	        return bookService.findByTitle(title);
+	public List<DataDTO> listRegisters (@RequestParam String title){	
+		  return dataBuilder(title);
+	}
+	
+private List<DataDTO> dataBuilder (String title) {
+		
+	if(!title.isEmpty()) {
+		
+		List<DataDTO> dataCollect = new ArrayList<DataDTO>();
+		
+		List<Book> listFilm = consummerFilmService.FindFilmByTitle(title);
+		DataDTO dtoFilm = new DataDTO();
+		for (Book film : listFilm) {
+			
+			dtoFilm.setTitle(film.getTitle());
+			dtoFilm.setAuthor(film.getAuthor());
+			dtoFilm.setCountry(film.getCountry());
+			dtoFilm.setReleaseDate(film.getReleaseDate());
+			dtoFilm.setPublisher(film.getPublisher());
+			dtoFilm.setType(film.getType());
+			
+			dataCollect.add(dtoFilm);	
+		}
+		
+		List<Book> listBook = bookService.findByTitle(title);
+		DataDTO dtoBook = new DataDTO();
+		for (Book book : listBook) {
+			
+			  dtoBook.setTitle(book.getTitle());
+			  dtoBook.setAuthor(book.getAuthor());
+			  dtoBook.setCountry(book.getCountry());
+			  dtoBook.setReleaseDate(book.getReleaseDate());
+			  dtoBook.setPublisher(book.getPublisher());
+			  dtoBook.setType(book.getType());
+			  
+			  dataCollect.add(dtoBook);
+		}
+		return dataCollect;
+	  }
+	    return Collections.emptyList();
 	}
 }

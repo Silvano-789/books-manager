@@ -1,11 +1,11 @@
 package br.com.books.api.dto;
 
-import java.util.List;
+import java.io.Serializable;
+import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import br.com.books.api.model.Book;
-import br.com.books.api.model.Film;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,9 +14,38 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class DataDTO{
+public class DataDTO implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 
-	private List<Book> bookList;
-	private List<Film> filmList;
+	@JsonIgnore
+    private Long id;
+	
+	private String title;
+
+	private String author;
+
+	private String country;
+
+	private String releaseDate;
+
+	private String publisher;
+
+    private String type;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		DataDTO other = (DataDTO) obj;
+		return Objects.equals(id, other.id);
+	}
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
 
 }

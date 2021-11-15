@@ -52,10 +52,7 @@ public class BookServiceImpl implements BookService {
 	/*This method find register by title*/
 	@Override
 	public List<Book> findByTitle (String title) {
-		
-		
-		
-		return bookRepository.findByTitle(title);
+		 return bookRepository.findByTitle(title);
 	}
 
 	@Override
