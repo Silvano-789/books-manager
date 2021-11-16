@@ -9,6 +9,7 @@ import br.com.books.api.model.Book;
 
 public interface BookRepository extends JpaRepository<Book, Long>{
 	
+	/*Method used on integration*/
     @Query("SELECT b FROM Book b WHERE b.title LIKE %:title%")
 	List<Book> findByTitle(String title);
 }

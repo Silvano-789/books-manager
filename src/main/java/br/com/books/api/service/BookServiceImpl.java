@@ -14,17 +14,17 @@ import br.com.books.api.repository.BookRepository;
 
 @Service
 public class BookServiceImpl implements BookService {
-
+    
 	@Autowired
 	private BookRepository bookRepository;
 
-	@Override
+	/*Save transaction*/
 	@Transactional
 	public Book saveBook(Book book) {
        return bookRepository.save(book);   
 	}
 
-	@Override
+	/*Update transaction*/
 	@Transactional
 	public void updateBook(Long id, Book book) {
 		bookRepository.findById(id)
@@ -35,7 +35,7 @@ public class BookServiceImpl implements BookService {
 					  }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "This register don´t exist on database"));
 	}
 
-	@Override
+	/*Delete transaction*/
 	@Transactional
 	public void deleteBook(Long id) {
 		bookRepository.findById(id)
@@ -44,19 +44,18 @@ public class BookServiceImpl implements BookService {
 					  return Void.TYPE;
 					  }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "This register don´t exist on database!"));
 	}
-
-	public List<Book> listAll (){
+     
+	public List<Book> listAllBooks (){
 		return bookRepository.findAll();
 	}
 	
-	/*This method find register by title*/
-	@Override
-	public List<Book> findByTitle (String title) {
+	/*This method find registers by title for integration */
+	public List<Book> findBookByTitle (String title) {
 		 return bookRepository.findByTitle(title);
 	}
 
-	@Override
-	public Book findById(Long id) {
+	/*Thi*/
+	public Book findBookById(Long id) {
 		return bookRepository.findById(id)
 				             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "The register was not found!"));
 	}

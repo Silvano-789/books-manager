@@ -32,6 +32,7 @@ public class DataDTO implements Serializable{
 	private String publisher;
 
     private String type;
+    
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

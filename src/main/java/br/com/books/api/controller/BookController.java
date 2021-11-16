@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.books.api.dto.DataDTO;
 import br.com.books.api.model.Book;
+import br.com.books.api.model.Film;
 import br.com.books.api.service.BookService;
 import br.com.books.api.service.ConsummerFilmService;
 
@@ -28,61 +29,77 @@ import br.com.books.api.service.ConsummerFilmService;
 @ResponseBody
 public class BookController {
 	
+	/*Dependences injects*/
 	@Autowired
 	private BookService bookService;
 	
 	@Autowired
 	private ConsummerFilmService consummerFilmService;
 
+	/*Save endpoint*/
 	@PostMapping(value = "/save")
 	@ResponseStatus (value = HttpStatus.CREATED)
 	public Book saveBook (@RequestBody Book book) {
 		return bookService.saveBook(book);
 	}
 	
+	/*Update endpoint*/
 	@PutMapping(value = "/update/{id}")
 	@ResponseStatus(value = HttpStatus.CREATED)
 	public void updateBook (@PathVariable(name = "id") Long id,  @RequestBody Book book) {
 	    bookService.updateBook(id, book);
 	}
 	
+	/*Delete endpoint*/
 	@DeleteMapping(value = "/delete/{id}")
 	@ResponseStatus(value = HttpStatus.OK)
 	public void delete (@PathVariable(name = "id") Long id) {
 		bookService.deleteBook(id);
 	}
 	
+	/*List all endpoint*/
 	@GetMapping(value = "/list-all")
-	public List<Book> listAll () {
-		return bookService.listAll();
+	public List<Book> listAllBooks() {
+		return bookService.listAllBooks();
 	}
 	
+	/*This endpoint is to films-manager API consumes*/
+	@GetMapping(value = "/list-books")
+	public List<Book> findBookByTitle(String title) {
+		return bookService.findBookByTitle(title);
+	}
+	
+	
+	
+	/*List with filter endpoint*/
 	@GetMapping(value = "/list")
-	public List<DataDTO> listRegisters (@RequestParam String title){	
+	public List<DataDTO> listRegisters (@RequestParam String title){
 		  return dataBuilder(title);
+		
 	}
 	
-private List<DataDTO> dataBuilder (String title) {
-		
+	/*This method is to build the informations on DataDTO object */
+	private List<DataDTO> dataBuilder (String title) {
+	
 	if(!title.isEmpty()) {
 		
 		List<DataDTO> dataCollect = new ArrayList<DataDTO>();
 		
-		List<Book> listFilm = consummerFilmService.FindFilmByTitle(title);
+		List<Film> listFilm = consummerFilmService.FindFilmByTitle(title);
 		DataDTO dtoFilm = new DataDTO();
-		for (Book film : listFilm) {
+		for (Film film : listFilm) {
 			
 			dtoFilm.setTitle(film.getTitle());
 			dtoFilm.setAuthor(film.getAuthor());
 			dtoFilm.setCountry(film.getCountry());
 			dtoFilm.setReleaseDate(film.getReleaseDate());
-			dtoFilm.setPublisher(film.getPublisher());
+			dtoFilm.setPublisher(film.getCinematography());
 			dtoFilm.setType(film.getType());
 			
 			dataCollect.add(dtoFilm);	
 		}
 		
-		List<Book> listBook = bookService.findByTitle(title);
+		List<Book> listBook = bookService.findBookByTitle(title);
 		DataDTO dtoBook = new DataDTO();
 		for (Book book : listBook) {
 			

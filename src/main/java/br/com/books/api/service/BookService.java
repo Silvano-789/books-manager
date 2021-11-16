@@ -15,10 +15,12 @@ public interface BookService {
 	/*It deletes a register on database*/
 	void deleteBook (Long id);
 	
-	List<Book> listAll ();
-	
 	/*It list all registers from database*/
-	List<Book> findByTitle (String title);
+	List<Book> listAllBooks ();
 	
-	Book findById (Long id);
+	/*It list all registers from database by title attribute*/
+	List<Book> findBookByTitle (String title);
+	
+	/*It find a single register by id*/
+	Book findBookById (Long id);
 }
