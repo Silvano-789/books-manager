@@ -1,13 +1,15 @@
 package br.com.books.api.model;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Film {
+@Getter
+@Setter
+public class Film{
 	
 	private String title;
 
@@ -16,8 +18,8 @@ public class Film {
 	private String country;
 
 	private String releaseDate;
+	
+	private String cinematography;
 
-    private String cinematography;
-
-    private String type;
+    private String type;	    
 }

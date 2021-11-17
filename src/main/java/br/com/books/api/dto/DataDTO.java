@@ -1,6 +1,5 @@
 package br.com.books.api.dto;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -14,10 +13,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class DataDTO implements Serializable{
+public class DataDTO extends BookFilmDTO {
 	
-	private static final long serialVersionUID = 1L;
-
 	@JsonIgnore
     private Long id;
 	
@@ -28,8 +25,6 @@ public class DataDTO implements Serializable{
 	private String country;
 
 	private String releaseDate;
-
-	private String publisher;
 
     private String type;
     

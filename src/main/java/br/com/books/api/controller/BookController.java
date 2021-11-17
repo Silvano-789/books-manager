@@ -93,7 +93,7 @@ public class BookController {
 			dtoFilm.setAuthor(film.getAuthor());
 			dtoFilm.setCountry(film.getCountry());
 			dtoFilm.setReleaseDate(film.getReleaseDate());
-			dtoFilm.setPublisher(film.getCinematography());
+			dtoFilm.setCinematography(film.getCinematography());
 			dtoFilm.setType(film.getType());
 			
 			dataCollect.add(dtoFilm);	
@@ -102,14 +102,13 @@ public class BookController {
 		List<Book> listBook = bookService.findBookByTitle(title);
 		DataDTO dtoBook = new DataDTO();
 		for (Book book : listBook) {
-			
 			  dtoBook.setTitle(book.getTitle());
 			  dtoBook.setAuthor(book.getAuthor());
 			  dtoBook.setCountry(book.getCountry());
 			  dtoBook.setReleaseDate(book.getReleaseDate());
 			  dtoBook.setPublisher(book.getPublisher());
 			  dtoBook.setType(book.getType());
-			  
+						  
 			  dataCollect.add(dtoBook);
 		}
 		return dataCollect;
