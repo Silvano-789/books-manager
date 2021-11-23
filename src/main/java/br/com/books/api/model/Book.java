@@ -18,7 +18,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Book{
+public class Book extends BaseBook{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

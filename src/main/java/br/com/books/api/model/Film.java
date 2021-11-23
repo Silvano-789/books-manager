@@ -9,7 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Film{
+public class Film extends BaseBook{
 	
 	private String title;
 

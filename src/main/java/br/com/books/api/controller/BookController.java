@@ -37,34 +37,34 @@ public class BookController {
 	private ConsummerFilmService consummerFilmService;
 
 	/*Save endpoint*/
-	@PostMapping(value = "/save")
-	@ResponseStatus (value = HttpStatus.CREATED)
+	@PostMapping
+	@ResponseStatus (HttpStatus.CREATED)
 	public Book saveBook (@RequestBody Book book) {
 		return bookService.saveBook(book);
 	}
 	
 	/*Update endpoint*/
-	@PutMapping(value = "/update/{id}")
-	@ResponseStatus(value = HttpStatus.CREATED)
+	@PutMapping("/{id}")
+	@ResponseStatus(HttpStatus.OK)
 	public void updateBook (@PathVariable(name = "id") Long id,  @RequestBody Book book) {
 	    bookService.updateBook(id, book);
 	}
 	
 	/*Delete endpoint*/
-	@DeleteMapping(value = "/delete/{id}")
-	@ResponseStatus(value = HttpStatus.OK)
+	@DeleteMapping("/{id}")
+	@ResponseStatus(HttpStatus.OK)
 	public void delete (@PathVariable(name = "id") Long id) {
 		bookService.deleteBook(id);
 	}
 	
 	/*List all endpoint*/
-	@GetMapping(value = "/list-all")
+	@GetMapping
 	public List<Book> listAllBooks() {
 		return bookService.listAllBooks();
 	}
 	
 	/*This endpoint is to films-manager API consumes*/
-	@GetMapping(value = "/list-books")
+	@GetMapping("/list-books")
 	public List<Book> findBookByTitle(String title) {
 		return bookService.findBookByTitle(title);
 	}
@@ -72,7 +72,7 @@ public class BookController {
 	
 	
 	/*List with filter endpoint*/
-	@GetMapping(value = "/list")
+	@GetMapping("/list")
 	public List<DataDTO> listRegisters (@RequestParam String title){
 		  return dataBuilder(title);
 		
@@ -86,8 +86,9 @@ public class BookController {
 		List<DataDTO> dataCollect = new ArrayList<DataDTO>();
 		
 		List<Film> listFilm = consummerFilmService.FindFilmByTitle(title);
-		DataDTO dtoFilm = new DataDTO();
+		
 		for (Film film : listFilm) {
+			DataDTO dtoFilm = new DataDTO();
 			
 			dtoFilm.setTitle(film.getTitle());
 			dtoFilm.setAuthor(film.getAuthor());
@@ -100,8 +101,10 @@ public class BookController {
 		}
 		
 		List<Book> listBook = bookService.findBookByTitle(title);
-		DataDTO dtoBook = new DataDTO();
+		
 		for (Book book : listBook) {
+			  DataDTO dtoBook = new DataDTO();
+			  
 			  dtoBook.setTitle(book.getTitle());
 			  dtoBook.setAuthor(book.getAuthor());
 			  dtoBook.setCountry(book.getCountry());
