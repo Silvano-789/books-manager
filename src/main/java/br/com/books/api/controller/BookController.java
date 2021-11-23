@@ -69,8 +69,6 @@ public class BookController {
 		return bookService.findBookByTitle(title);
 	}
 	
-	
-	
 	/*List with filter endpoint*/
 	@GetMapping("/list")
 	public List<DataDTO> listRegisters (@RequestParam String title){

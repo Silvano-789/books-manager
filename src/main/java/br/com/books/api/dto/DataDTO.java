@@ -25,13 +25,16 @@ public class DataDTO {
 	private String country;
 
 	private String releaseDate;
+	
+	@JsonInclude(value = Include.NON_NULL)
+	private String publisher;
+	
+	@JsonInclude(value = Include.NON_NULL)
+    private String cinematography;
 
     private String type;
     
-    @JsonInclude(value = Include.NON_NULL)
-    private String publisher;
-    @JsonInclude(value = Include.NON_NULL)
-    private String cinematography;
+  
     
 	@Override
 	public boolean equals(Object obj) {
